@@ -6,7 +6,7 @@
 
 ### Docker run command
 
-`docker run -t --name youtube-container -p 8000:8000 youtube-stock:latest`
+`docker run -t --name youtube-container -p 8000:8000 destro97/youtube-stock:latest`
 
 ### Docker container stop command
 
