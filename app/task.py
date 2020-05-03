@@ -31,7 +31,7 @@ def fetch_youtube_search_results_helper(key_index):
     response = youtube_api.search().list(
         q=search_query,
         order='date',
-        maxResults=10,
+        maxResults=20,
         type='video',
         pageToken=page_token,
         publishedAfter=pub_after_date,
@@ -124,6 +124,8 @@ def youtube_fetch_task():
             Video.objects.bulk_create(model_items)
         except Exception as e:
             print(f'DB Save Error: {e}')
+        else:
+            print("Storing in DB successful")
     print("Task Finished")
 
 
@@ -151,5 +153,5 @@ Scheduler.run_continuously = run_continuously
 
 def start_scheduler():
     scheduler = Scheduler()
-    scheduler.every(4).seconds.do(youtube_fetch_task)
+    scheduler.every(20).seconds.do(youtube_fetch_task)
     scheduler.run_continuously()

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="table-responsive">
+        <form action="/search" method="POST">{% csrf_token %}<input type="text" id="search_term" name="search_term" placeholder="Search.."> <button type='submit'>Search</button></form>
+      <table class="table table-bordered sortable" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th >ID</th>
+            <th>Video Title</th>
+            <th>Description</th>
+            <th>Published At</th>
+            <th>Publisher</th>
+            <th>Thumbnail</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+          <tr>
+            <td>{{item.video_id}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.published_at}}</td>
+            <td>{{item.publisher}}</td>
+            <td><img src="{{item.thumbnail}}"></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span class="step-links">
+            {% if data.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ data.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ data.number }} of {{ data.paginator.num_pages }}.
+            </span>
+    
+            {% if data.has_next %}
+                <a href="?page={{ data.next_page_number }}">next &raquo;</a>
+            {% endif %}
+        </span>
+    </div> 
+      <!-- <script>
+          function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("dataTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+              td = tr[i].getElementsByTagName("td")[0];
+              if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  tr[i].style.display = "";
+                } else {
+                  tr[i].style.display = "none";
+                }
+              }       
+            }
+          }
+          </script> -->
+    </div>
+</body>
+</html>
