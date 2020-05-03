@@ -17,8 +17,8 @@ def fetch(request):
 
 def search(request):
     search_term = request.GET.get('q')
-    data_title = Video.objects.filter(title__icontains=search_term.lower())
-    data_desc = Video.objects.filter(description__icontains=search_term.lower())
+    data_title = Video.objects.filter(title__icontains=search_term.lower()).order_by('-published_at')
+    data_desc = Video.objects.filter(description__icontains=search_term.lower()).order_by('-published_at')
     data = data_title | data_desc
     paginator = Paginator(data, 7)
     page = request.GET.get('page')
