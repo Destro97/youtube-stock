@@ -14,7 +14,10 @@ from .models import Video
 page_token = None
 api_keys = [
     "AIzaSyCNchRAFaJXrHbczf4I3d-vCjmgOoeBrhI",
-    "AIzaSyDB5g6WxgaERxXjLdArg8aTySlHeu8JMIk"
+    "AIzaSyDB5g6WxgaERxXjLdArg8aTySlHeu8JMIk",
+    "AIzaSyBTh5fZwND58gyhImFoDsJX98nNFGpRfB8",
+    "AIzaSyAaYJFJ4FEkXxTrSUHhtyKh3ZX71VTcI-k",
+    "AIzaSyDlWK50iYEee4z9ISQiAdo5adECc7bXf6Y"
 ]
 key_index = 0
 
@@ -68,21 +71,21 @@ def fetch_youtube_search_results():
                         key_index = key_index % len(api_keys)
                     else:
                         print(f'Some error occured fetching youtube results as {e}')
-                        raise('Internal error')
+                        raise Exception('Internal error')
                 except Exception as e:
                     print(f'Some error occured fetching youtube results as {e}')
-                    raise('Internal error')
+                    raise Exception('Internal error')
                 else:
                     break
             else:
                 print("All api keys quota exceeded")
-                raise("Quota exceeded for all API KEYs")
+                raise Exception("Quota exceeded for all API KEYs")
         else:
             print(f'Some error occured fetching youtube results as {e}')
-            raise('Internal error')
+            raise Exception('Internal error')
     except Exception as e:
         print(f'Some error occured fetching youtube results as {e}')
-        raise('Internal error')
+        raise Exception('Internal error')
     return response
 
 
