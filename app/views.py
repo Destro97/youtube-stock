@@ -5,7 +5,7 @@ from .models import Video
 
 def fetch(request):
     data = Video.objects.all().order_by('-published_at')
-    paginator = Paginator(data, 7)
+    paginator = Paginator(data, 10)
     page = request.GET.get('page')
     try:
         result = paginator.get_page(page)
@@ -20,7 +20,7 @@ def search(request):
     data_title = Video.objects.filter(title__icontains=search_term.lower()).order_by('-published_at')
     data_desc = Video.objects.filter(description__icontains=search_term.lower()).order_by('-published_at')
     data = data_title | data_desc
-    paginator = Paginator(data, 7)
+    paginator = Paginator(data, 10)
     page = request.GET.get('page')
     try:
         result = paginator.get_page(page)

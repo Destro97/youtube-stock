@@ -156,5 +156,5 @@ Scheduler.run_continuously = run_continuously
 
 def start_scheduler():
     scheduler = Scheduler()
-    scheduler.every(20).seconds.do(youtube_fetch_task)
+    scheduler.every(10).seconds.do(youtube_fetch_task)
     scheduler.run_continuously()
